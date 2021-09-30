@@ -26,7 +26,7 @@ describe("Gilded Rose: special item tests", () => {
     });
 
     it("rises +2 in quality per day after sellIn passed", () => {
-      brie = { name: "Aged Brie", sellIn: 0, quality: 25 };
+      brie.sellIn = 0;
       gildedRose = new Shop([brie]);
       items = gildedRose.updateQuality();
       expect(items[0].quality).toBe(27);
@@ -49,42 +49,45 @@ describe("Gilded Rose: special item tests", () => {
   });
 
   describe("Backstage pass", () => {
-    it("has a quality of 0 when sellIn less than 0", () => {
+    beforeEach(() => {
       backstagePass = {
         name: "Backstage passes to a TAFKAL80ETC concert",
         sellIn: 0,
         quality: 40,
       };
+    });
+
+    it("has a quality of 0 when sellIn less than 0", () => {
       gildedRose = new Shop([backstagePass]);
       items = gildedRose.updateQuality();
       expect(items[0].quality).toBe(0);
     });
-    it("increases quality by 2 when sellIn >5 and <=10", () => {
-      backstagePass = {
-        name: "Backstage passes to a TAFKAL80ETC concert",
-        sellIn: 6,
-        quality: 40,
-      };
+    it("increases quality by 2 when sellIn >5 and <=10 (lower limit)", () => {
+      backstagePass.sellIn = 6;
       gildedRose = new Shop([backstagePass]);
       items = gildedRose.updateQuality();
       expect(items[0].quality).toBe(42);
     });
-    it("increases quality by 3 when sellIn >0 and <=5", () => {
-      backstagePass = {
-        name: "Backstage passes to a TAFKAL80ETC concert",
-        sellIn: 5,
-        quality: 40,
-      };
+    it("increases quality by 2 when sellIn >5 and <=10 (upper limit)", () => {
+      backstagePass.sellIn = 10;
+      gildedRose = new Shop([backstagePass]);
+      items = gildedRose.updateQuality();
+      expect(items[0].quality).toBe(42);
+    });
+    it("increases quality by 3 when sellIn >0 and <=5 (lower limit)", () => {
+      backstagePass.sellIn = 1;
+      gildedRose = new Shop([backstagePass]);
+      items = gildedRose.updateQuality();
+      expect(items[0].quality).toBe(43);
+    });
+    it("increases quality by 3 when sellIn >0 and <=5 (upper limit)", () => {
+      backstagePass.sellIn = 5;
       gildedRose = new Shop([backstagePass]);
       items = gildedRose.updateQuality();
       expect(items[0].quality).toBe(43);
     });
     it("increases quality by 1 when sellIn >10", () => {
-      backstagePass = {
-        name: "Backstage passes to a TAFKAL80ETC concert",
-        sellIn: 11,
-        quality: 40,
-      };
+      backstagePass.sellIn = 11;
       gildedRose = new Shop([backstagePass]);
       items = gildedRose.updateQuality();
       expect(items[0].quality).toBe(41);
