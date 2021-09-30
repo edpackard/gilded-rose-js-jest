@@ -1,6 +1,7 @@
 const { Shop } = require("../src/gilded_rose");
 
 let items;
+let brie;
 let gildedRose;
 
 describe("Gilded Rose: special item tests", () => {
@@ -16,7 +17,7 @@ describe("Gilded Rose: special item tests", () => {
     });
 
     it("cannot have a quality above 50", () => {
-      for (var i = 0; i < 50; i++) {
+      for (let i = 0; i < 50; i++) {
         items = gildedRose.updateQuality();
       }
       expect(items[0].quality).toBe(50);
@@ -27,6 +28,21 @@ describe("Gilded Rose: special item tests", () => {
       gildedRose = new Shop([brie]);
       items = gildedRose.updateQuality();
       expect(items[0].quality).toBe(27);
+    });
+  });
+
+  describe("Sulfuras, Hand of Ragnaros", () => {
+    beforeEach(() => {
+      sulfuras = { name: "Sulfuras, Hand of Ragnaros", sellIn: 0, quality: 40 };
+      gildedRose = new Shop([sulfuras]);
+      items = gildedRose.updateQuality();
+    });
+
+    it("has unchanging sellIn value", () => {
+      expect(items[0].sellIn).toBe(0);
+    });
+    it("has unchanging quality value", () => {
+      expect(items[0].quality).toBe(40);
     });
   });
 });
