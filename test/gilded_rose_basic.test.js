@@ -4,8 +4,8 @@ let items;
 let gildedRose;
 let lembas;
 
-describe("Gilded Rose", () => {
-  describe("basic functions: single item", () => {
+describe("Gilded Rose: basic item tests", () => {
+  describe("single ordinary item", () => {
     beforeAll(() => {
       lembas = { name: "lembas bread", sellIn: 30, quality: 25 };
       gildedRose = new Shop([lembas]);
@@ -25,7 +25,7 @@ describe("Gilded Rose", () => {
     });
   });
 
-  describe("basic functions: multiple items", () => {
+  describe("multiple ordinary items", () => {
     beforeAll(() => {
       lembas = { name: "lembas bread", sellIn: 30, quality: 25 };
       let entDraught = { name: "ent-draught", sellIn: 20, quality: 40 };
@@ -50,7 +50,7 @@ describe("Gilded Rose", () => {
     });
   });
 
-  describe("basic quality behaviours", () => {
+  describe("quality behaviours", () => {
     it("does not degrade quality below zero", () => {
       lembas = { name: "lembas bread", sellIn: 30, quality: 25 };
       gildedRose = new Shop([lembas]);
