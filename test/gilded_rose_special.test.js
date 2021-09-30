@@ -2,6 +2,8 @@ const { Shop } = require("../src/gilded_rose");
 
 let items;
 let brie;
+let sulfuras;
+let backstagePass;
 let gildedRose;
 
 describe("Gilded Rose: special item tests", () => {
@@ -43,6 +45,49 @@ describe("Gilded Rose: special item tests", () => {
     });
     it("has unchanging quality value", () => {
       expect(items[0].quality).toBe(40);
+    });
+  });
+
+  describe("Backstage pass", () => {
+    it("has a quality of 0 when sellIn less than 0", () => {
+      backstagePass = {
+        name: "Backstage passes to a TAFKAL80ETC concert",
+        sellIn: 0,
+        quality: 40,
+      };
+      gildedRose = new Shop([backstagePass]);
+      items = gildedRose.updateQuality();
+      expect(items[0].quality).toBe(0);
+    });
+    it("increases quality by 2 when sellIn >5 and <=10", () => {
+      backstagePass = {
+        name: "Backstage passes to a TAFKAL80ETC concert",
+        sellIn: 6,
+        quality: 40,
+      };
+      gildedRose = new Shop([backstagePass]);
+      items = gildedRose.updateQuality();
+      expect(items[0].quality).toBe(42);
+    });
+    it("increases quality by 3 when sellIn >0 and <=5", () => {
+      backstagePass = {
+        name: "Backstage passes to a TAFKAL80ETC concert",
+        sellIn: 5,
+        quality: 40,
+      };
+      gildedRose = new Shop([backstagePass]);
+      items = gildedRose.updateQuality();
+      expect(items[0].quality).toBe(43);
+    });
+    it("increases quality by 1 when sellIn >10", () => {
+      backstagePass = {
+        name: "Backstage passes to a TAFKAL80ETC concert",
+        sellIn: 11,
+        quality: 40,
+      };
+      gildedRose = new Shop([backstagePass]);
+      items = gildedRose.updateQuality();
+      expect(items[0].quality).toBe(41);
     });
   });
 });
