@@ -56,3 +56,8 @@ To generate test coverage report
 ```sh
 npm run test:coverage
 ```
+
+Log
+
+- after reading instructions, decided to turn underlying logic into tests.
+- realised halfway through writing basic tests that my tests for Shop were relying on Item class: easy enough to mock these with simple hash objects, as Shop class is not tightly coupled to Item class - all that is required is that an item in the Shop items array should have name, sellIn, and quality attributes.

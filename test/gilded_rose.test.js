@@ -1,4 +1,4 @@
-const { Shop, Item } = require("../src/gilded_rose");
+const { Shop } = require("../src/gilded_rose");
 
 let items;
 let gildedRose;
@@ -7,7 +7,7 @@ let lembas;
 describe("Gilded Rose", () => {
   describe("basic functions: single item", () => {
     beforeAll(() => {
-      lembas = new Item("lembas bread", 30, 25);
+      lembas = { name: "lembas bread", sellIn: 30, quality: 25 };
       gildedRose = new Shop([lembas]);
       items = gildedRose.updateQuality();
     });
@@ -27,9 +27,9 @@ describe("Gilded Rose", () => {
 
   describe("basic functions: multiple items", () => {
     beforeAll(() => {
-      lembas = new Item("lembas bread", 30, 25);
-      let entDraught = new Item("ent-draught", 20, 40);
-      let oneRing = new Item("one ring", 40, 50);
+      lembas = { name: "lembas bread", sellIn: 30, quality: 25 };
+      let entDraught = { name: "ent-draught", sellIn: 20, quality: 40 };
+      let oneRing = { name: "one ring", sellIn: 40, quality: 50 };
       gildedRose = new Shop([lembas, entDraught, oneRing]);
       items = gildedRose.updateQuality();
     });
@@ -52,7 +52,7 @@ describe("Gilded Rose", () => {
 
   describe("basic quality behaviours", () => {
     it("does not degrade quality below zero", () => {
-      lembas = new Item("lembas bread", 30, 25);
+      lembas = { name: "lembas bread", sellIn: 30, quality: 25 };
       gildedRose = new Shop([lembas]);
       for (var i = 0; i < 26; i++) {
         items = gildedRose.updateQuality();
@@ -61,7 +61,7 @@ describe("Gilded Rose", () => {
     });
 
     it("doubles rate of quality degradation once sellIn less than zero", () => {
-      let pipeweed = new Item("pipeweed", 5, 30);
+      let pipeweed = { name: "pipeweed", sellIn: 5, quality: 30 };
       gildedRose = new Shop([pipeweed]);
       for (var i = 0; i < 10; i++) {
         items = gildedRose.updateQuality();
