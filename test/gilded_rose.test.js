@@ -33,14 +33,17 @@ describe("Gilded Rose", () => {
 
     it("should store names of items", () => {
       expect(items[1].name).toBe("ent-draught");
+      expect(items[2].name).toBe("one ring");
     });
 
     it("should reduce sellIn value at end of day", () => {
+      expect(items[1].sellIn).toBe(19);
       expect(items[2].sellIn).toBe(39);
     });
 
     it("should degrade item quality at end of day", () => {
       expect(items[1].quality).toBe(39);
+      expect(items[2].quality).toBe(49);
     });
   });
 });
